@@ -1149,6 +1149,7 @@ class AnnotationEditorUIManager {
   }
 
   #onSelectEnd(methodOfCreation = "") {
+    return;
     if (this.#mode === AnnotationEditorType.HIGHLIGHT) {
       this.highlightSelection(methodOfCreation);
     } else if (this.#enableHighlightFloatingButton) {
