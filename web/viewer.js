@@ -69,6 +69,7 @@ function getViewerConfiguration() {
         "editorStampParamsToolbar"
       ),
       download: document.getElementById("download"),
+      viewerFullscreenButton: document.getElementById("viewerFullscreen"),
     },
     secondaryToolbar: {
       toolbar: document.getElementById("secondaryToolbar"),
@@ -174,6 +175,9 @@ function getViewerConfiguration() {
         "editorFreeHighlightThickness"
       ),
       editorHighlightShowAll: document.getElementById("editorHighlightShowAll"),
+      editorStampAddSignature: document.getElementById(
+        "editorStampAddSignature"
+      ),
     },
     printContainer: document.getElementById("printContainer"),
   };

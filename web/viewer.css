@@ -121,6 +121,9 @@
   --secondaryToolbarButton-spreadEven-icon: url(images/secondaryToolbarButton-spreadEven.svg);
   --secondaryToolbarButton-documentProperties-icon: url(images/secondaryToolbarButton-documentProperties.svg);
   --editorParams-stampAddImage-icon: url(images/toolbarButton-zoomIn.svg);
+  --toolbarButton-editorSignature-icon:url(images/toolbarButton-editorSignature.svg);
+  --toolbarButton-fullscreen-icon:url(images/toolbarButton-fullscreen.svg);
+  --editorParams-stampAddSignature-icon:url(images/toolbarButton-editorInk.svg);
 }
 
 :root:dir(rtl) {
@@ -608,6 +611,10 @@ body {
   mask-image: var(--editorParams-stampAddImage-icon);
 }
 
+#editorStampAddSignature::before {
+  mask-image: var(--editorParams-stampAddSignature-icon);
+}
+
 .doorHanger,
 .doorHangerRight {
   border-radius: 2px;
@@ -932,7 +939,11 @@ body {
 }
 
 #editorStamp::before {
-  mask-image: var(--toolbarButton-editorStamp-icon);
+  mask-image: var(--toolbarButton-editorSignature-icon);
+}
+
+#viewerFullscreen::before{
+  mask-image: var(--toolbarButton-fullscreen-icon);
 }
 
 :is(#print, #secondaryPrint)::before {
@@ -1532,4 +1543,52 @@ dialog :link {
   #scaleSelectContainer {
     display: none;
   }
+}
+
+
+.inkButtonGroup {
+  position: absolute;
+  top: calc(50vh - 26px);
+  right: 10px;
+  display: flex;
+  gap: 12px;
+  user-select: none;
+  touch-action: none;
+
+  --editor-toolbar-cancel-icon: url(images/editor-toolbar-cancel.svg);
+  --editor-toolbar-undo-icon: url(images/editor-toolbar-undo.svg);
+  --editor-toolbar-confirm-icon: url(images/editor-toolbar-confirm.svg);
+}
+
+.inkButtonGroup > button {
+  padding: 4px;
+  border-radius: 100%;
+  border-width:1px;
+  /* background: ; */
+  box-shadow: 5px 5px 5px var(--doorhanger-border-color),
+  0 0 0 1px var(--doorhanger-border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+.inkButtonGroup > button::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  mask-size: cover;
+  background: black;
+}
+
+#inkCancelButton::before {
+  mask-image: var(--editor-toolbar-cancel-icon);
+}
+#inkUndoButton::before {
+  mask-image: var(--editor-toolbar-undo-icon);
+}
+#inkCommitButton::before {
+  mask-image: var(--editor-toolbar-confirm-icon);
 }

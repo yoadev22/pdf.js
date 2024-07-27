@@ -57,6 +57,8 @@ class InkEditor extends AnnotationEditor {
 
   #requestFrameCallback = null;
 
+  #buttonGroup = null;
+
   static _defaultColor = null;
 
   static _defaultOpacity = 1;
@@ -595,10 +597,13 @@ class InkEditor extends AnnotationEditor {
   /**
    * Redraw all the paths.
    */
-  #redraw() {
-    if (this.isEmpty()) {
+  #redraw(undo = false) {
+    if (this.isEmpty() && !undo) {
       this.#updateTransform();
       return;
+    }
+    if (this.isEmpty()) {
+      this.#buttonGroup.classList.add("hidden");
     }
     this.#setStroke();
 
@@ -642,6 +647,9 @@ class InkEditor extends AnnotationEditor {
     this.div.focus({
       preventScroll: true /* See issue #15744 */,
     });
+
+    const buttonGroup = this.div.querySelector(".inkButtonGroup");
+    buttonGroup && this.div.removeChild(buttonGroup);
   }
 
   /** @inheritdoc */
@@ -651,6 +659,11 @@ class InkEditor extends AnnotationEditor {
     }
     super.focusin(event);
     this.enableEditMode();
+  }
+
+  /** @inheritdoc */
+  focusout(event) {
+    event.preventDefault();
   }
 
   /**
@@ -738,6 +751,8 @@ class InkEditor extends AnnotationEditor {
     // Since the ink editor covers all of the page and we want to be able
     // to select another editor, we just put this one in the background.
     this.setInBackground();
+
+    this.#buttonGroup.classList.remove("hidden");
   }
 
   /**
@@ -751,6 +766,70 @@ class InkEditor extends AnnotationEditor {
 
     this.div.append(this.canvas);
     this.ctx = this.canvas.getContext("2d");
+  }
+
+  #createButtonGroup() {
+    let isDragging = false;
+
+    const div = (this.#buttonGroup = document.createElement("div"));
+    div.className = "inkButtonGroup hidden";
+    div.style.zIndex = 1000001;
+
+    interact(div).draggable({
+      modifiers: [
+        interact.modifiers.restrictRect({
+          restriction: "parent",
+          endOnly: true,
+        }),
+      ],
+      onmove(event) {
+        isDragging = true;
+        var target = event.target;
+        // keep the dragged position in the data-x/data-y attributes
+        var x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+        var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+        // translate the element
+        target.style.webkitTransform = target.style.transform =
+          "translate(" + x + "px, " + y + "px)";
+        // update the posiion attributes
+        target.setAttribute("data-x", x);
+        target.setAttribute("data-y", y);
+      },
+      onend() {
+        setTimeout(() => {
+          isDragging = false;
+        }, 200);
+      },
+    });
+
+    const undo = () => {
+      if (isDragging) return;
+      this.allRawPaths.pop();
+      this.paths.pop();
+      this.bezierPath2D.pop();
+      this.#redraw(true);
+    };
+    const undoButton = document.createElement("button");
+    undoButton.id = "inkUndoButton";
+    undoButton.addEventListener("click", undo);
+
+    const confirm = () => {
+      if (isDragging) return;
+      super.commitOrRemove();
+      this.div.contains(div) && this.div.removeChild(div);
+    };
+    const confirmButton = document.createElement("button");
+    confirmButton.id = "inkCommitButton";
+    confirmButton.addEventListener("click", confirm);
+
+    const cancelButton = document.createElement("button");
+    cancelButton.id = "inkCancelButton";
+    cancelButton.addEventListener("click", () => !isDragging && this.remove());
+
+    div.append(cancelButton);
+    div.append(undoButton);
+    div.append(confirmButton);
+    this.div.append(div);
   }
 
   /**
@@ -776,7 +855,7 @@ class InkEditor extends AnnotationEditor {
 
   /** @inheritdoc */
   get isResizable() {
-    return !this.isEmpty() && this.#disableEditing;
+    return false;
   }
 
   /** @inheritdoc */
@@ -800,6 +879,7 @@ class InkEditor extends AnnotationEditor {
     this.setDims(w, h);
 
     this.#createCanvas();
+    this.#createButtonGroup();
 
     if (this.width) {
       // This editor was created in using copy (ctrl+c).

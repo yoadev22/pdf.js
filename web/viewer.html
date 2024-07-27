@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 Copyright 2012 Mozilla Foundation
 
@@ -90,6 +90,7 @@ See https://github.com/adobe-type-tools/cmap-resources
     </script>
     <script src="viewer.js" type="module"></script>
 <!--#endif-->
+    <script src="interact.min.js" type="module"></script>
   </head>
 
   <body tabindex="1">
@@ -229,6 +230,9 @@ See https://github.com/adobe-type-tools/cmap-resources
             <button id="editorStampAddImage" class="secondaryToolbarButton" title="Add image" tabindex="108" data-l10n-id="pdfjs-editor-stamp-add-image-button">
               <span class="editorParamsLabel" data-l10n-id="pdfjs-editor-stamp-add-image-button-label">Add image</span>
             </button>
+            <button id="editorStampAddSignature" class="secondaryToolbarButton hidden" title="Add signature" tabindex="108" data-l10n-id="pdfjs-editor-stamp-add-signature-button">
+              <span class="editorParamsLabel" data-l10n-id="pdfjs-editor-stamp-add-signature-button-label">Add signature</span>
+            </button>
           </div>
         </div>
 
@@ -360,14 +364,17 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <!-- <button id="editorHighlight" class="toolbarButton" hidden="true" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorHighlightParamsToolbar" tabindex="31" data-l10n-id="pdfjs-editor-highlight-button">
                     <span data-l10n-id="pdfjs-editor-highlight-button-label">Highlight</span>
                   </button> -->
+                  <button id="viewerFullscreen" class="toolbarButton hidden" title="Fullscreen" tabindex="30" data-l10n-id="pdfjs-viewer-fullscreen-button">
+                    <span data-l10n-id="pdfjs-viewer-fullscreen-button-label">Fullscreen</span>
+                  </button>
                   <button id="editorFreeText" class="toolbarButton" disabled="disabled" title="Text" role="radio" aria-checked="false" aria-controls="editorFreeTextParamsToolbar" tabindex="32" data-l10n-id="pdfjs-editor-free-text-button">
                     <span data-l10n-id="pdfjs-editor-free-text-button-label">Text</span>
                   </button>
                   <button id="editorInk" class="toolbarButton" disabled="disabled" title="Draw" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar" tabindex="33" data-l10n-id="pdfjs-editor-ink-button">
                     <span data-l10n-id="pdfjs-editor-ink-button-label">Draw</span>
                   </button>
-                  <button id="editorStamp" class="toolbarButton" disabled="disabled" title="Add or edit images" role="radio" aria-checked="false" aria-controls="editorStampParamsToolbar" tabindex="34" data-l10n-id="pdfjs-editor-stamp-button">
-                    <span data-l10n-id="pdfjs-editor-stamp-button-label">Add or edit images</span>
+                  <button id="editorStamp" class="toolbarButton" disabled="disabled" title="Add or edit signature" role="radio" aria-checked="false" aria-controls="editorStampParamsToolbar" tabindex="34" data-l10n-id="pdfjs-editor-stamp-button">
+                    <span data-l10n-id="pdfjs-editor-stamp-button-label">Add or edit signature</span>
                   </button>
                 </div>
 

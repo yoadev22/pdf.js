@@ -254,6 +254,7 @@ function createWebpackAlias(defines) {
     viewerAlias["web-null_l10n"] = "web/l10n.js";
     viewerAlias["web-preferences"] = "web/firefoxcom.js";
     viewerAlias["web-print_service"] = "web/firefox_print_service.js";
+    viewerAlias["web-interact"] = "web/interact.min.js";
   }
 
   const alias = { ...basicAlias, ...libraryAlias, ...viewerAlias };
@@ -1031,6 +1032,9 @@ function buildGeneric(defines, dir) {
 
     gulp
       .src("web/compressed.tracemonkey-pldi-09.pdf", { encoding: false })
+      .pipe(gulp.dest(dir + "web")),
+    gulp
+      .src("web/interact.min.js", { encoding: false })
       .pipe(gulp.dest(dir + "web")),
   ]);
 }
