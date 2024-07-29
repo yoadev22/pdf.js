@@ -345,19 +345,6 @@ See https://github.com/adobe-type-tools/cmap-resources
                 <button id="viewFind" class="toolbarButton" title="Find in Document" tabindex="12" data-l10n-id="pdfjs-findbar-button" aria-expanded="false" aria-controls="findbar">
                   <span data-l10n-id="pdfjs-findbar-button-label">Find</span>
                 </button>
-                <div class="splitToolbarButton hiddenSmallView">
-                  <button class="toolbarButton" title="Previous Page" id="previous" tabindex="13" data-l10n-id="pdfjs-previous-button">
-                    <span data-l10n-id="pdfjs-previous-button-label">Previous</span>
-                  </button>
-                  <div class="splitToolbarButtonSeparator"></div>
-                  <button class="toolbarButton" title="Next Page" id="next" tabindex="14" data-l10n-id="pdfjs-next-button">
-                    <span data-l10n-id="pdfjs-next-button-label">Next</span>
-                  </button>
-                </div>
-                <span class="loadingInput start">
-                  <input type="number" id="pageNumber" class="toolbarField" title="Page" value="1" min="1" tabindex="15" data-l10n-id="pdfjs-page-input" autocomplete="off">
-                </span>
-                <span id="numPages" class="toolbarLabel"></span>
               </div>
               <div id="toolbarViewerRight">
                 <div id="editorModeButtons" class="splitToolbarButton toggled" role="radiogroup">
@@ -430,6 +417,17 @@ See https://github.com/adobe-type-tools/cmap-resources
               </div>
             </div>
           </div>
+        </div>
+        
+        <div class="paginationContainer">
+          <button class="paginationButton" title="Previous Page" id="previous" tabindex="13" data-l10n-id="pdfjs-previous-button">
+          </button>
+          <div class="paginationNum">
+            <input type="number" id="pageNumber" class="paginationInput" title="Page" value="1" min="1" tabindex="15" data-l10n-id="pdfjs-page-input" autocomplete="off">
+            <span id="numPages" class="paginationLabel"></span>
+          </div>
+          <button class="paginationButton" title="Next Page" id="next" tabindex="14" data-l10n-id="pdfjs-next-button">
+          </button>
         </div>
 
         <div id="viewerContainer" tabindex="0">

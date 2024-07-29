@@ -907,11 +907,11 @@ body {
 }
 
 #previous::before {
-  mask-image: var(--toolbarButton-pageUp-icon);
+  mask-image: var(--findbarButton-previous-icon);
 }
 
 #next::before {
-  mask-image: var(--toolbarButton-pageDown-icon);
+  mask-image: var(--findbarButton-next-icon);
 }
 
 #zoomOut::before {
@@ -1591,4 +1591,75 @@ dialog :link {
 }
 #inkCommitButton::before {
   mask-image: var(--editor-toolbar-confirm-icon);
+}
+
+.paginationContainer {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: .5rem;
+  height: 2rem;
+  display: flex;
+  gap: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 2px 0.5rem;
+  z-index: 100005;
+
+  button {
+    width: 2rem;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  button::before {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    background-color: white;
+    mask-size: cover;
+  }
+
+  button:hover {
+    background-color: rgb(255 255 255 / 0.15);
+  }
+
+  button:disabled,button:hover:disabled {
+    background-color: rgb(255, 255, 255, 0.2);
+    cursor: not-allowed;
+  }
+
+  button:disabled::before {
+    background-color: rgb(173, 181, 189);
+  }
+
+  .paginationLabel {
+    min-width: 16px;
+    padding: 7px;
+    margin: 2px;
+    border-radius: 2px;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: left;
+    user-select: none;
+    cursor: default;
+  }
+}
+
+.paginationNum {
+  display: flex;
+  margin-left: 6px;
+
+  & > input {
+    width: 32px !important;
+    margin-right: 0;
+    text-align: center !important;
+    border-radius: 6px;
+  }
 }
