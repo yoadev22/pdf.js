@@ -46,6 +46,8 @@ class StampEditor extends AnnotationEditor {
 
   #hasBeenAddedInUndoStack = false;
 
+  #imageRotation = 0;
+
   static _type = "stamp";
 
   static _editorType = AnnotationEditorType.STAMP;
@@ -348,6 +350,24 @@ class StampEditor extends AnnotationEditor {
     }
   }
 
+  /** @inheritdoc */
+  rotate() {
+    this.#imageRotation = (this.#imageRotation + 90) % 360;
+    this.#setDimensions(this.#canvas.height, this.#canvas.width);
+  }
+
+  /** @inheritdoc */
+  async addEditToolbar() {
+    const editToolbar = await super.addEditToolbar();
+
+    const button = document.createElement("button");
+    button.className = "rotate";
+    button.addEventListener("click", () => this.rotate());
+    editToolbar.addRotateButton(button);
+
+    return editToolbar;
+  }
+
   /**
    * When the dimensions of the div change the inner canvas must
    * renew its dimensions, hence it must redraw its own contents.
@@ -381,6 +401,10 @@ class StampEditor extends AnnotationEditor {
   }
 
   #scaleBitmap(width, height) {
+    const directionChanged = (this.#imageRotation / 180) % 1 !== 0;
+    if (directionChanged) {
+      [width, height] = [height, width];
+    }
     const { width: bitmapWidth, height: bitmapHeight } = this.#bitmap;
 
     let newWidth = bitmapWidth;
@@ -479,17 +503,28 @@ class StampEditor extends AnnotationEditor {
 
     const ctx = canvas.getContext("2d");
     ctx.filter = this._uiManager.hcmFilter;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate(-(this.#imageRotation * Math.PI) / 180);
+    ctx.translate(-width / 2, -height / 2);
+
+    const directionChanged = (this.#imageRotation / 180) % 1 !== 0;
+    const offsetX = directionChanged ? (height - width) / 2 : 0;
+    const offsetY = directionChanged ? (width - height) / 2 : 0;
     ctx.drawImage(
       bitmap,
       0,
       0,
       bitmap.width,
       bitmap.height,
-      0,
-      0,
-      width,
-      height
+      -offsetX,
+      -offsetY,
+      directionChanged ? height : width,
+      directionChanged ? width : height
     );
+    ctx.restore();
   }
 
   /** @inheritdoc */
@@ -576,13 +611,21 @@ class StampEditor extends AnnotationEditor {
       return null;
     }
     const editor = super.deserialize(data, parent, uiManager);
-    const { rect, bitmapUrl, bitmapId, isSvg, accessibilityData } = data;
+    const {
+      rect,
+      bitmapUrl,
+      bitmapId,
+      isSvg,
+      accessibilityData,
+      imageRotation,
+    } = data;
     if (bitmapId && uiManager.imageManager.isValidId(bitmapId)) {
       editor.#bitmapId = bitmapId;
     } else {
       editor.#bitmapUrl = bitmapUrl;
     }
     editor.#isSvg = isSvg;
+    editor.#imageRotation = imageRotation;
 
     const [parentWidth, parentHeight] = editor.pageDimensions;
     editor.width = (rect[2] - rect[0]) / parentWidth;
@@ -609,6 +652,7 @@ class StampEditor extends AnnotationEditor {
       rotation: this.rotation,
       isSvg: this.#isSvg,
       structTreeParentId: this._structTreeParentId,
+      imageRotation: this.#imageRotation,
     };
 
     if (isForCopying) {

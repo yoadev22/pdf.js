@@ -4895,7 +4895,7 @@ class StampAnnotation extends MarkupAnnotation {
   }
 
   static async createNewAppearanceStream(annotation, xref, params) {
-    const { rotation } = annotation;
+    const { rotation, imageRotation } = annotation;
     const { imageRef, width, height } = params.image;
     const resources = new Dict(xref);
     const xobject = new Dict(xref);
@@ -4910,8 +4910,8 @@ class StampAnnotation extends MarkupAnnotation {
     appearanceStreamDict.set("BBox", [0, 0, width, height]);
     appearanceStreamDict.set("Resources", resources);
 
-    if (rotation) {
-      const matrix = getRotationMatrix(rotation, width, height);
+    if (rotation || imageRotation) {
+      const matrix = getRotationMatrix(rotation + imageRotation, width, height);
       appearanceStreamDict.set("Matrix", matrix);
     }
 

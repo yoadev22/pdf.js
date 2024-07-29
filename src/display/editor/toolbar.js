@@ -131,6 +131,11 @@ class EditorToolbar {
     this.#buttons.prepend(button, this.#divider);
   }
 
+  addRotateButton(button) {
+    this.#addListenersToElement(button);
+    this.#buttons.prepend(button, this.#divider);
+  }
+
   addColorPicker(colorPicker) {
     this.#colorPicker = colorPicker;
     const button = colorPicker.renderButton();

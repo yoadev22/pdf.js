@@ -209,6 +209,7 @@
 .textLayer {
   .editToolbar {
     --editor-toolbar-delete-image: url(images/editor-toolbar-delete.svg);
+    --editor-toolbar-rotate-image: url(images/editor-toolbar-rotate.svg);
     --editor-toolbar-bg-color: #f0f0f4;
     --editor-toolbar-highlight-image: url(images/toolbarButton-editorHighlight.svg);
     --editor-toolbar-fg-color: #2e2e56;
@@ -315,12 +316,11 @@
         }
       }
 
-      .delete {
+      .rotate, .delete {
         width: var(--editor-toolbar-height);
 
         &::before {
           content: "";
-          mask-image: var(--editor-toolbar-delete-image);
           mask-repeat: no-repeat;
           mask-position: center;
           display: inline-block;
@@ -331,6 +331,18 @@
 
         &:hover::before {
           background-color: var(--editor-toolbar-hover-fg-color);
+        }
+      }
+
+      .rotate {
+        &::before {
+          mask-image: var(--editor-toolbar-rotate-image);
+        }
+      }
+
+      .delete {
+        &::before {
+          mask-image: var(--editor-toolbar-delete-image);
         }
       }
 
