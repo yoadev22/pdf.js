@@ -2145,6 +2145,10 @@ if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
     "null",
     "http://mozilla.github.io",
     "https://mozilla.github.io",
+    "https://yoalearning.com",
+    "http://yoalearning.com",
+    "http://localhost:8888",
+    "http://localhost:3006",
   ];
   // eslint-disable-next-line no-var
   var validateFileURL = function (file) {
