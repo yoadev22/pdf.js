@@ -386,3 +386,19 @@ pdfjs-editor-colorpicker-red =
 pdfjs-editor-highlight-show-all-button-label = 显示全部
 pdfjs-editor-highlight-show-all-button =
     .title = 显示全部
+
+
+## Tour
+pdfjs-tour-toolbar-step-title = 工具栏说明
+pdfjs-tour-paginator-step-title = 页数操作说明
+pdfjs-tour-sidebar = 侧边栏显示
+pdfjs-tour-search = 搜索
+pdfjs-tour-zoom-out = 缩小
+pdfjs-tour-zoom-in = 放大
+pdfjs-tour-fullscreen = 全屏
+pdfjs-tour-freetext = 添加文本
+pdfjs-tour-ink = 进行绘图、勾选
+pdfjs-tour-stamp = 添加签名
+pdfjs-tour-tools = 更多工具
+pdfjs-tour-more-info = 提示： 学生可选择下载至设备，待填写完成后打开对应文件并点击底部保存 (下载和打开功能在更多工具中)
+pdfjs-tour-paginator = 跳转至上/下一页或指定页数

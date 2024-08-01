@@ -131,7 +131,7 @@ class EditorToolbar {
     this.#buttons.prepend(button, this.#divider);
   }
 
-  addRotateButton(button) {
+  addSingleButton(button) {
     this.#addListenersToElement(button);
     this.#buttons.prepend(button, this.#divider);
   }

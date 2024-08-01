@@ -363,7 +363,7 @@ class StampEditor extends AnnotationEditor {
     const button = document.createElement("button");
     button.className = "rotate";
     button.addEventListener("click", () => this.rotate());
-    editToolbar.addRotateButton(button);
+    editToolbar?.addSingleButton(button);
 
     return editToolbar;
   }

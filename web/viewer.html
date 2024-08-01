@@ -90,7 +90,10 @@ See https://github.com/adobe-type-tools/cmap-resources
     </script>
     <script src="viewer.js" type="module"></script>
 <!--#endif-->
-    <script src="interact.min.js" type="module"></script>
+    <script src="../plugins/interact.min.js" type="module"></script>
+
+    <script src="../plugins/driver.min.js"></script>
+    <link rel="stylesheet" href="../plugins/driver.min.css"/>
   </head>
 
   <body tabindex="1">
@@ -418,7 +421,7 @@ See https://github.com/adobe-type-tools/cmap-resources
             </div>
           </div>
         </div>
-        
+
         <div class="paginationContainer">
           <button class="paginationButton" title="Previous Page" id="previous" tabindex="13" data-l10n-id="pdfjs-previous-button">
           </button>

@@ -416,3 +416,18 @@ pdfjs-editor-colorpicker-red =
 pdfjs-editor-highlight-show-all-button-label = Show all
 pdfjs-editor-highlight-show-all-button =
     .title = Show all
+
+## Tour
+pdfjs-tour-toolbar-step-title = Toolbar Description
+pdfjs-tour-paginator-step-title = Page Operation Instructions
+pdfjs-tour-sidebar = Sidebar display
+pdfjs-tour-search = Search
+pdfjs-tour-zoom-out = Zoom out
+pdfjs-tour-zoom-in = Zoom in
+pdfjs-tour-fullscreen = Full screen
+pdfjs-tour-freetext = Add text
+pdfjs-tour-ink = Drawing and checking
+pdfjs-tour-stamp = Add signature
+pdfjs-tour-tools = More tools
+pdfjs-tour-more-info = Tip: Students can choose to download to your device, and after filling in, open the corresponding file and save it (download and open functions are in 'More Tools')
+pdfjs-tour-paginator = Jump to previous/next page or specify page number

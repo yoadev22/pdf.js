@@ -1545,28 +1545,25 @@ dialog :link {
   }
 }
 
+:root {
+  --editor-toolbar-cancel-icon: url(images/editor-toolbar-cancel.svg);
+  --editor-toolbar-undo-icon: url(images/editor-toolbar-undo.svg);
+  --editor-toolbar-confirm-icon: url(images/editor-toolbar-confirm.svg);
+}
 
 .inkButtonGroup {
   position: absolute;
-  top: calc(50vh - 26px);
-  right: 10px;
   display: flex;
   gap: 12px;
   user-select: none;
   touch-action: none;
-
-  --editor-toolbar-cancel-icon: url(images/editor-toolbar-cancel.svg);
-  --editor-toolbar-undo-icon: url(images/editor-toolbar-undo.svg);
-  --editor-toolbar-confirm-icon: url(images/editor-toolbar-confirm.svg);
 }
 
 .inkButtonGroup > button {
   padding: 4px;
   border-radius: 100%;
   border-width:1px;
-  /* background: ; */
-  box-shadow: 5px 5px 5px var(--doorhanger-border-color),
-  0 0 0 1px var(--doorhanger-border-color);
+  box-shadow: 5px 5px 5px var(--doorhanger-border-color), 0 0 0 1px var(--doorhanger-border-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1574,13 +1571,26 @@ dialog :link {
 }
 
 
-.inkButtonGroup > button::before {
+.inkButtonGroup > button::before, #inkUndoButton::before {
   content: '';
   width: 18px;
   height: 18px;
   display: inline-block;
   mask-size: cover;
   background: black;
+}
+
+.editToolbar #inkUndoButton {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  width: 28px;
+  padding: 0 4px;
+}
+
+.editToolbar #inkUndoButton::before {
+  height: 20px;
+  width: 20px;
 }
 
 #inkCancelButton::before {
@@ -1661,5 +1671,34 @@ dialog :link {
     margin-right: 0;
     text-align: center !important;
     border-radius: 6px;
+  }
+}
+
+.driver-overlay {
+  z-index: 110000 !important;
+}
+
+.tour-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  & .icon, & > p, &> div {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  & .icon::before {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    background-color: black;
+    mask-size: cover;
+  }
+
+  & > p, & > div {
+    gap: 4px;
   }
 }
